@@ -161,11 +161,13 @@ suite('Functional Tests', () => {
             .keepOpen()
             .post('/api/check')
             .send({
-                puzzle: ''
+                puzzle: '',
+                coordinate: '',
+                value: '',
             })
             .end(function (err, res) {
                 assert.equal(res.status, 200);
-                assert.deepEqual(res.body.error, 'Required field missing');
+                assert.deepEqual(res.body.error, 'Required field(s) missing');
                 done();
             });
     });
@@ -177,7 +179,9 @@ suite('Functional Tests', () => {
             .keepOpen()
             .post('/api/check')
             .send({
-                puzzle: invalidPuzzle
+                puzzle: invalidPuzzle,
+                coordinate: 'A2',
+                value: '3'
             })
             .end(function (err, res) {
                 assert.equal(res.status, 200);
